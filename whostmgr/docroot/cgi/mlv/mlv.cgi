@@ -1064,7 +1064,10 @@ HTML
     </div>
     <div id="update-panel" style="display: none;">
       <div class="update-content">
-        <h2>$update_title</h2>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <h2 style="margin: 0;">$update_title</h2>
+          <button id="close-update-panel-btn" style="background: rgba(148, 163, 184, 0.2); border: 1px solid rgba(148, 163, 184, 0.3); border-radius: 0.5rem; color: #e2e8f0; cursor: pointer; padding: 0.5rem 1rem; font-size: 0.85rem;">✕</button>
+        </div>
         <p id="update-status">$update_status_checking</p>
         <div id="update-progress" style="display: none;">
           <div class="progress-bar">
