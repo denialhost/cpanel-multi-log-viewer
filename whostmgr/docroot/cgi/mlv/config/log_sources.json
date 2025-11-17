@@ -1,0 +1,180 @@
+{
+  "logs": [
+    {
+      "id": "cpanel-error",
+      "name": "cPanel Error Log",
+      "path": "/usr/local/cpanel/logs/error_log",
+      "default_tail": 100,
+      "category": "cPanel",
+      "priority": 1
+    },
+    {
+      "id": "apache-error",
+      "name": "Apache Error Log",
+      "path": "/etc/apache2/logs/error_log",
+      "default_tail": 100,
+      "category": "Web Server",
+      "priority": 2
+    },
+    {
+      "id": "exim-main",
+      "name": "Exim Main Log",
+      "path": "/var/log/exim_mainlog",
+      "default_tail": 100,
+      "category": "Mail",
+      "priority": 3
+    },
+    {
+      "id": "mail-log",
+      "name": "Mail Log",
+      "path": "/var/log/maillog",
+      "default_tail": 100,
+      "category": "Mail",
+      "priority": 4
+    },
+    {
+      "id": "cpanel-access",
+      "name": "cPanel Access Log",
+      "path": "/usr/local/cpanel/logs/access_log",
+      "default_tail": 100,
+      "category": "cPanel",
+      "priority": 5
+    },
+    {
+      "id": "apache-access",
+      "name": "Apache Access Log",
+      "path": "/etc/apache2/logs/access_log",
+      "default_tail": 100,
+      "category": "Web Server",
+      "priority": 6
+    },
+    {
+      "id": "cpanel-firewall",
+      "name": "CSF/LFD Firewall Log",
+      "path": "/var/log/lfd.log",
+      "default_tail": 100,
+      "category": "Security",
+      "priority": 7
+    },
+    {
+      "id": "exim-reject",
+      "name": "Exim Reject Log",
+      "path": "/var/log/exim_rejectlog",
+      "default_tail": 100,
+      "category": "Mail",
+      "priority": 8
+    },
+    {
+      "id": "system-messages",
+      "name": "Mensajes del Sistema",
+      "path": "/var/log/messages",
+      "default_tail": 100,
+      "category": "System",
+      "priority": 9
+    },
+    {
+      "id": "system-secure",
+      "name": "System Secure Log",
+      "path": "/var/log/secure",
+      "default_tail": 100,
+      "category": "System",
+      "priority": 10
+    },
+    {
+      "id": "system-cron",
+      "name": "Cron Log",
+      "path": "/var/log/cron",
+      "default_tail": 100,
+      "category": "System",
+      "priority": 11
+    },
+    {
+      "id": "exim-panic",
+      "name": "Exim Panic Log",
+      "path": "/var/log/exim_paniclog",
+      "default_tail": 100,
+      "category": "Mail",
+      "priority": 20
+    },
+    {
+      "id": "mysql-error",
+      "name": "MySQL Error Log",
+      "path": "/var/log/mysqld.log",
+      "default_tail": 100,
+      "category": "Database",
+      "priority": 12
+    },
+    {
+      "id": "mysql-error-alt",
+      "name": "MySQL Error Log (Alt)",
+      "path": "/var/log/mysql/error.log",
+      "default_tail": 100,
+      "category": "Database",
+      "priority": 13
+    },
+    {
+      "id": "php-fpm",
+      "name": "PHP-FPM Log",
+      "path": "/var/log/php-fpm.log",
+      "default_tail": 100,
+      "category": "Web Server",
+      "priority": 14
+    },
+    {
+      "id": "nginx-error",
+      "name": "Nginx Error Log",
+      "path": "/var/log/nginx/error.log",
+      "default_tail": 100,
+      "category": "Web Server",
+      "priority": 15
+    },
+    {
+      "id": "nginx-access",
+      "name": "Nginx Access Log",
+      "path": "/var/log/nginx/access.log",
+      "default_tail": 100,
+      "category": "Web Server",
+      "priority": 16
+    },
+    {
+      "id": "clamav",
+      "name": "ClamAV Log",
+      "path": "/var/log/clamav.log",
+      "default_tail": 100,
+      "category": "Security",
+      "priority": 17
+    },
+    {
+      "id": "cpanel-bandwidth",
+      "name": "cPanel Bandwidth Log",
+      "path": "/usr/local/cpanel/logs/bandwidth",
+      "default_tail": 100,
+      "category": "cPanel",
+      "priority": 50
+    },
+    {
+      "id": "cpanel-license",
+      "name": "cPanel License Log",
+      "path": "/usr/local/cpanel/logs/license_log",
+      "default_tail": 100,
+      "category": "cPanel",
+      "priority": 51
+    },
+    {
+      "id": "cpanel-session",
+      "name": "cPanel Session Log",
+      "path": "/usr/local/cpanel/logs/session_log",
+      "default_tail": 100,
+      "category": "cPanel",
+      "priority": 52
+    },
+    {
+      "id": "cpanel-stats",
+      "name": "cPanel Stats Log",
+      "path": "/usr/local/cpanel/logs/stats_log",
+      "default_tail": 100,
+      "category": "cPanel",
+      "priority": 53
+    }
+  ]
+}

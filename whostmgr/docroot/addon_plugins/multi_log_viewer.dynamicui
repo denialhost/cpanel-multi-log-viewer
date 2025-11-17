@@ -1,0 +1,8 @@
+link = {
+    location = "Plugins::Multi Log Viewer"
+    url = "/cgi/multi_log_viewer/multi_log_viewer.cgi"
+    target = "_self"
+    acl = "all"
+    icon = "/cgi/multi_log_viewer/assets/icon.svg"
+}
+

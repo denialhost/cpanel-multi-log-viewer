@@ -1,0 +1,554 @@
+:root {
+  color-scheme: light dark;
+  font-family: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Estilos base */
+body {
+  margin: 0;
+  padding: 0;
+  background: #0f172a;
+  color: #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Asegurar que main ocupe el espacio disponible */
+
+header {
+  padding: 1.5rem 2rem;
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+header p {
+  margin: 0.35rem 0 0;
+  color: #94a3b8;
+}
+
+#main-content {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  grid-template-rows: auto;
+  gap: 1.5rem;
+  min-height: calc(100vh - 7rem);
+  width: 100%;
+  align-items: start;
+}
+
+#main-content > aside {
+  grid-column: 1;
+  grid-row: 1;
+  width: 320px;
+  box-sizing: border-box;
+  align-self: start;
+  position: relative;
+}
+
+#viewer-column {
+  grid-column: 2;
+  grid-row: 1;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+#logs-list {
+  border-right: 1px solid rgba(148, 163, 184, 0.2);
+  background: rgba(15, 23, 42, 0.8);
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  overflow-y: auto;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  max-height: calc(100vh - 7rem);
+}
+
+#logs-list .search {
+  margin-bottom: 1rem;
+  flex-shrink: 0;
+  position: relative;
+}
+
+#logs-list input[type="text"] {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 0.5rem;
+  background: rgba(30, 41, 59, 0.9);
+  color: inherit;
+}
+
+#filter-clear-btn {
+  position: absolute;
+  right: 0.45rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(148, 163, 184, 0.25);
+  border: none;
+  color: #cbd5f5;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 999px;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+}
+
+#filter-clear-btn:hover {
+  background: rgba(148, 163, 184, 0.45);
+}
+
+#logs {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.category-section {
+  margin-bottom: 0.5rem;
+}
+
+.category-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0.75rem;
+  background: rgba(59, 130, 246, 0.15);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s ease;
+}
+
+.category-header:hover {
+  background: rgba(59, 130, 246, 0.25);
+}
+
+.category-title {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #93c5fd;
+  flex: 1;
+}
+
+.category-count {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  background: rgba(148, 163, 184, 0.2);
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.25rem;
+}
+
+.category-toggle {
+  font-size: 0.7rem;
+  color: #94a3b8;
+  transition: transform 0.2s ease;
+}
+
+.category-content {
+  list-style: none;
+  padding: 0.5rem 0 0 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.log-item {
+  padding: 0.75rem 0.9rem;
+  border-radius: 0.6rem;
+  border: 1px solid transparent;
+  background: rgba(30, 41, 59, 0.7);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.log-item.compressed {
+  border-style: dashed;
+  border-color: rgba(249, 115, 22, 0.5);
+  background: rgba(30, 41, 59, 0.85);
+}
+
+.log-item .badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.7rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.badge-compressed {
+  background: rgba(249, 115, 22, 0.18);
+  color: #fb923c;
+  border: 1px solid rgba(249, 115, 22, 0.3);
+}
+
+.meta-details {
+  color: #cbd5f5;
+  font-size: 0.78rem;
+}
+
+.log-path {
+  color: #94a3b8;
+  font-size: 0.75rem;
+}
+
+.log-item:hover {
+  border-color: rgba(59, 130, 246, 0.45);
+}
+
+.log-item.active {
+  border-color: rgba(59, 130, 246, 0.8);
+  background: rgba(37, 99, 235, 0.25);
+}
+
+.log-item.missing {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.log-item .title {
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+}
+
+.log-item .subtitle {
+  font-size: 0.82rem;
+  color: #94a3b8;
+}
+
+#viewer {
+  display: flex;
+  flex-direction: column;
+  padding: 1.2rem;
+  gap: 0.75rem;
+  background: rgba(15, 23, 42, 0.9);
+  overflow: hidden;
+  min-height: 0;
+  width: 100%;
+  max-height: calc(1.45rem * 20 + 4rem);
+  position: sticky;
+  top: 1.5rem;
+  align-self: start;
+  height: fit-content;
+  z-index: 10;
+}
+
+.controls {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  align-items: center;
+  flex-shrink: 0;
+  min-height: fit-content;
+}
+
+.controls label {
+  font-size: 0.85rem;
+  color: #cbd5f5;
+}
+
+.controls input[type="number"],
+.controls input[type="text"] {
+  padding: 0.45rem 0.6rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: rgba(30, 41, 59, 0.8);
+  color: inherit;
+}
+
+.controls button {
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.85), rgba(29, 78, 216, 0.9));
+  border: none;
+  border-radius: 0.6rem;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.1s ease-in-out;
+}
+
+.controls button.secondary {
+  background: rgba(148, 163, 184, 0.25);
+  color: #e2e8f0;
+}
+
+.controls button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.controls button.live-active {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.85), rgba(22, 163, 74, 0.9)) !important;
+  color: white !important;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.controls button:hover {
+  transform: translateY(-1px);
+}
+
+.checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+#status {
+  min-height: 1.2rem;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+#compressed-banner {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  margin: 0.75rem 0 0;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(249, 115, 22, 0.3);
+  background: rgba(249, 115, 22, 0.08);
+  color: #fb923c;
+}
+
+#compressed-banner .compressed-info {
+  flex: 1;
+}
+
+#compressed-banner .compressed-actions button {
+  padding: 0.55rem 1.2rem;
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.9), rgba(234, 88, 12, 0.9));
+  border: none;
+  border-radius: 0.6rem;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.1s ease-in-out;
+}
+
+#compressed-banner .compressed-actions button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+#compressed-banner .compressed-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+#status.error {
+  color: #fca5a5;
+}
+
+#status.info {
+  color: #93c5fd;
+}
+
+#log-output {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: scroll;
+  overflow-x: auto;
+  min-height: 0;
+  background: rgba(15, 23, 42, 0.95);
+  border-radius: 0.75rem;
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: calc(1.45rem * 20);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.6) rgba(15, 23, 42, 0.5);
+}
+
+#log-output::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+#log-output::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.5);
+  border-radius: 4px;
+}
+
+#log-output::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.6);
+  border-radius: 4px;
+  border: 2px solid rgba(15, 23, 42, 0.5);
+}
+
+#log-output::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.8);
+}
+
+/* Animación para el badge de actualización */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.2);
+  }
+}
+
+#update-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.update-content {
+  background: rgba(30, 41, 59, 0.95);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  border-radius: 1rem;
+  padding: 2rem;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+.update-content h2 {
+  margin: 0 0 1rem;
+  font-size: 1.5rem;
+}
+
+#update-status {
+  color: #94a3b8;
+  margin-bottom: 1.5rem;
+}
+
+#update-progress {
+  margin: 1.5rem 0;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(148, 163, 184, 0.2);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, rgba(59, 130, 246, 0.8), rgba(29, 78, 216, 0.9));
+  width: 0%;
+  transition: width 0.3s ease;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+#update-message {
+  color: #93c5fd;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.update-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.update-actions button {
+  flex: 1;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.6rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.1s ease-in-out, opacity 0.2s;
+}
+
+.update-actions button.primary {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.85), rgba(29, 78, 216, 0.9));
+  color: white;
+}
+
+.update-actions button:not(.primary) {
+  background: rgba(148, 163, 184, 0.25);
+  color: #e2e8f0;
+}
+
+.update-actions button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.update-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 1024px) {
+  #main-content {
+    grid-template-columns: 1fr;
+  }
+
+  #logs-list {
+    border-right: none;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+    max-height: none;
+    overflow-y: visible;
+  }
+  
+  #viewer {
+    position: static;
+    max-height: none;
+  }
+  
+  .update-content {
+    padding: 1.5rem;
+  }
+}
+
