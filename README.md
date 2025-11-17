@@ -59,7 +59,7 @@ uninstall.sh                     # Uninstaller
    - Log in to WHM as `root`
    - Navigate to **Plugins → Multi Log Viewer** in the left sidebar
 
-## Quick upgrade
+## Upgrade
 
 If you already have the plugin installed, you can upgrade it using the built-in updater or manually:
 
@@ -73,37 +73,38 @@ If you already have the plugin installed, you can upgrade it using the built-in 
 wget https://github.com/denialhost/cpanel-multi-log-viewer/releases/latest/download/cpanel-multi-log-viewer.tar.gz
 tar -xzf cpanel-multi-log-viewer.tar.gz
 cd cpanel-multi-log-viewer
-chmod +x upgrade.sh
-./upgrade.sh
+chmod +x install.sh
+./install.sh --upgrade
 ```
 
-`upgrade.sh` automatically:
+The installer automatically:
 
 - creates a backup of the current installation
-- downloads the latest package
 - removes the previous version
 - installs the new version
 - restores configuration files
 
-**To use a custom package URL:**
-
-```bash
-./upgrade.sh https://your-server.com/plugin.tar.gz
-```
-
-**To restore from a backup:**
-
-```bash
-./upgrade.sh --restore /root/.mlv_backup_YYYYMMDD_HHMMSS
-```
+**Note:** If you run `./install.sh` without options and the plugin is already installed, it will automatically detect and perform an upgrade.
 
 ## Uninstallation
 
 ```bash
 cd /root/cpanel-multi-log-viewer
-chmod +x uninstall.sh
-./uninstall.sh
+chmod +x install.sh
+./install.sh --uninstall
 ```
+
+## Reinstallation
+
+To completely remove and reinstall the plugin:
+
+```bash
+cd /root/cpanel-multi-log-viewer
+chmod +x install.sh
+./install.sh --reinstall
+```
+
+**Note:** `upgrade.sh` and `uninstall.sh` are wrapper scripts that call `install.sh` with the appropriate options. You can use either method.
 
 ## Log configuration
 
