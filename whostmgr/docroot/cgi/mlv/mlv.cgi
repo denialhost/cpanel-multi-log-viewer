@@ -301,6 +301,10 @@ if ($is_api_request) {
                     $version_url =~ s/\.tar\.gz$/-version.txt/;
                 }
                 
+                # Agregar cache busting para evitar caché de GitHub/CDN
+                my $cache_buster = time();
+                $version_url .= ($version_url =~ /\?/ ? '&' : '?') . "t=$cache_buster";
+                
                 eval {
                     my $fetch_cmd = "curl -s -k -L --max-time 5 '$version_url' 2>/dev/null || wget -q -O - --no-check-certificate '$version_url' 2>/dev/null";
                     my $remote_content = `$fetch_cmd`;
