@@ -1,0 +1,58 @@
+1.1.3
+
+Changelog v1.1.3:
+- Reverted multi-language experiment; interface and logs are English-only again
+- Removed language JSON loading to avoid parsing/encoding issues
+- Simplified frontend by embedding fixed English text constants
+
+Changelog v1.1.2:
+- Added groundwork for locale detection with English fallback
+- Introduced JSON dictionaries and translation helpers (later removed)
+- Adjusted frontend to use translation keys for consistent messaging
+
+Changelog v1.1.1:
+- Unified installer script: install.sh now handles install/upgrade/uninstall/reinstall
+- Preserved web updater compatibility (uses --no-restart with automatic upgrade detection)
+- Converted uninstall.sh and upgrade.sh into wrappers that call install.sh
+
+Changelog v1.1.0:
+- Consolidated UTF-8 handling across logs, changelog fetch, and update API
+- Sanitized remote changelog to avoid corrupt JSON responses
+- Improved web updater feedback and added safeguards against concurrent executions
+
+Changelog v1.0.5:
+- Reduced viewer height to 20 lines with internal scroll
+- Improved sticky behavior to keep banner and viewer visible
+- Updated layout to independent left/right columns with smoother scrolling
+
+Changelog v1.0.4:
+- Detected compressed logs automatically and marked them in the list
+- Added warning banner plus download option for compressed logs
+- Enabled direct download of .gz/.bz2 files without server-side extraction
+
+Changelog v1.0.3:
+- Added "Changelog" button to display full release history
+- Improved modal panel layout for changelog viewing
+- Fixed encoding issues in changelog display and applied automatic corrections
+- Enhanced readability with scrollable panel and cleaner formatting
+
+Changelog v1.0.2:
+- Corrected icon path to standard icon=mlv.png
+- Fixed changelog encoding and update notifications
+- Improved HTML escaping in update messages
+- Added automatic update checks every 30 minutes
+
+Changelog v1.0.1:
+- Fixed version display (previously showed "vunknown")
+- Added VERSION file copy during install for reliable version lookup
+- Improved version reading logic on the backend
+
+Changelog v1.0:
+- Grouped logs by category (cPanel, Web Server, Mail, etc.)
+- Changed default tail value to 100 lines
+- Enabled auto-scroll to the end to show most recent entries
+- Added update notification system
+- Displayed plugin version in the header
+- Optimized UI layout, performance, and cleanup routines
+- Streamlined tar.gz packaging process
+
