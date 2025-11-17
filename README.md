@@ -81,7 +81,7 @@ If you see `install.sh` at the root level the archive is malformed.
 ## Quick upgrade
 
 ```bash
-wget https://dev.denialhost.com/cpanel-multi-log-viewer.tar.gz
+wget https://github.com/denialhost/cpanel-multi-log-viewer/releases/latest/download/cpanel-multi-log-viewer.tar.gz
 tar -xzf cpanel-multi-log-viewer.tar.gz
 cd cpanel-multi-log-viewer
 chmod +x upgrade.sh
