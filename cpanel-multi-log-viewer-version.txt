@@ -1,4 +1,4 @@
-1.1.5
+1.1.4
 
 Changelog v1.1.4:
 - Integrated with GitHub Releases for automatic download tracking
