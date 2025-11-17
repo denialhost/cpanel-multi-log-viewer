@@ -89,11 +89,11 @@ if ($@) {
     # Si no es API, continuar pero sin funcionalidad de logs
 }
 
-# Detectar si es una solicitud API (logs o update)
+# Detectar si es una solicitud API (logs, update o changelog)
 # IMPORTANTE: Crear CGI ANTES de cualquier output
 my $cgi = eval { CGI->new } || CGI->new;
 my $api_action = $cgi->param('api') || '';
-my $is_api_request = ($api_action eq 'logs' || $api_action eq 'update');
+my $is_api_request = ($api_action eq 'logs' || $api_action eq 'update' || $api_action eq 'changelog');
 
 
 sub _install_process_running {
@@ -207,6 +207,51 @@ if ($is_api_request) {
             exit;
         }
         
+        if ($api_action eq 'changelog') {
+            # Endpoint para obtener el changelog (evita problemas de X-Frame-Options)
+            my $changelog_url = 'https://raw.githubusercontent.com/denialhost/cpanel-multi-log-viewer/main/cpanel-multi-log-viewer-version.txt';
+            
+            eval {
+                my $fetch_cmd = "curl -s -k -L --max-time 10 '$changelog_url' 2>/dev/null || wget -q -O - --no-check-certificate '$changelog_url' 2>/dev/null";
+                my $remote_content = `$fetch_cmd`;
+                
+                if ($remote_content) {
+                    # Decodificar y limpiar el contenido
+                    my $decoded = eval { decode('UTF-8', $remote_content) };
+                    if ($@) {
+                        $decoded = eval { decode('ISO-8859-1', $remote_content) };
+                    }
+                    $decoded = $decoded // $remote_content;
+                    $decoded =~ s/\r\n/\n/g;
+                    $decoded =~ s/\r/\n/g;
+                    
+                    # Limpiar caracteres problemáticos
+                    $decoded =~ s/[\x00-\x08\x0B\x0C\x0E-\x1F]/ /g;
+                    $decoded =~ tr/\xA0/ /;
+                    $decoded =~ s/\x{FEFF}//g;
+                    
+                    print encode_json({
+                        status => 'ok',
+                        content => $decoded
+                    });
+                } else {
+                    print encode_json({
+                        status => 'error',
+                        message => 'No se pudo obtener el changelog'
+                    });
+                }
+            };
+            
+            if ($@) {
+                print encode_json({
+                    status => 'error',
+                    message => 'Error al obtener el changelog',
+                    detail => $@
+                });
+            }
+            exit;
+        }
+        
         if ($api_action eq 'update') {
             # Manejar solicitudes de update (equivalente a update.cgi)
             # El header JSON ya fue impreso arriba, no imprimir de nuevo
@@ -245,8 +290,16 @@ if ($is_api_request) {
                 # Intentar leer versión remota y changelog
                 my $remote_version = undef;
                 my $changelog = undef;
-                my $version_url = $update_url;
-                $version_url =~ s/\.tar\.gz$/-version.txt/;
+                my $version_url;
+                
+                # Si es una URL de GitHub Releases, usar Raw para el changelog
+                if ($update_url =~ m|github\.com.*/releases/|) {
+                    $version_url = 'https://raw.githubusercontent.com/denialhost/cpanel-multi-log-viewer/main/cpanel-multi-log-viewer-version.txt';
+                } else {
+                    # Para URLs personalizadas, intentar el patrón antiguo
+                    $version_url = $update_url;
+                    $version_url =~ s/\.tar\.gz$/-version.txt/;
+                }
                 
                 eval {
                     my $fetch_cmd = "curl -s -k -L --max-time 5 '$version_url' 2>/dev/null || wget -q -O - --no-check-certificate '$version_url' 2>/dev/null";
@@ -1002,7 +1055,7 @@ HTML
           <h2 style="margin: 0; color: #e2e8f0;">$changelog_title</h2>
           <button id="close-changelog-btn" style="background: rgba(148, 163, 184, 0.2); border: 1px solid rgba(148, 163, 184, 0.3); border-radius: 0.5rem; color: #e2e8f0; cursor: pointer; padding: 0.5rem 1rem; font-size: 0.85rem;">$changelog_close</button>
         </div>
-        <iframe id="changelog-frame" src="about:blank" style="flex: 1; width: 100%; min-height: 60vh; border: none; border-radius: 0.6rem; background: #0f172a; color: #cbd5e1;" title="Changelog"></iframe>
+        <pre id="changelog-content" style="flex: 1; width: 100%; min-height: 60vh; max-height: 60vh; overflow-y: auto; border: none; border-radius: 0.6rem; background: #0f172a; color: #cbd5e1; padding: 1rem; font-family: 'Courier New', monospace; font-size: 0.9rem; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word; margin: 0;">Loading changelog...</pre>
       </div>
     </div>
     <div id="update-panel" style="display: none;">
