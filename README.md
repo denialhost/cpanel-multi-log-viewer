@@ -33,52 +33,41 @@ install.sh                       # Installer
 uninstall.sh                     # Uninstaller
 ```
 
-## Packaging the tar.gz
+## Installation
 
-**Important:** ensure the tarball contains the root directory
-`cpanel-multi-log-viewer/`. Dropping files at the archive root will break the
-installer.
+1. **Download the plugin package:**
 
-### Method 1: script (recommended)
+   ```bash
+   wget https://github.com/denialhost/cpanel-multi-log-viewer/releases/latest/download/cpanel-multi-log-viewer.tar.gz
+   ```
 
-```bash
-# From inside the project directory
-cd cpanel-multi-log-viewer
-chmod +x MAKE_TAR.sh
-./MAKE_TAR.sh
-```
+2. **Extract the archive:**
 
-The script validates the structure and prints diagnostics for each step.
+   ```bash
+   tar -xzf cpanel-multi-log-viewer.tar.gz
+   ```
 
-### Method 2: manual command
+3. **Run the installer:**
 
-Run from the parent directory:
+   ```bash
+   cd cpanel-multi-log-viewer
+   chmod +x install.sh
+   ./install.sh
+   ```
 
-```bash
-# Expected tree
-# /path/
-#   cpanel-multi-log-viewer/
-#     install.sh
-#     whostmgr/
-#     appconfig/
-
-cd /path
-tar -czf cpanel-multi-log-viewer.tar.gz cpanel-multi-log-viewer/
-```
-
-**Check the contents:**
-
-```bash
-tar -tzf cpanel-multi-log-viewer.tar.gz | head -5
-# cpanel-multi-log-viewer/
-# cpanel-multi-log-viewer/install.sh
-# cpanel-multi-log-viewer/whostmgr/
-# cpanel-multi-log-viewer/appconfig/
-```
-
-If you see `install.sh` at the root level the archive is malformed.
+4. **Access the plugin:**
+   - Log in to WHM as `root`
+   - Navigate to **Plugins → Multi Log Viewer** in the left sidebar
 
 ## Quick upgrade
+
+If you already have the plugin installed, you can upgrade it using the built-in updater or manually:
+
+**Method 1: Using the web updater (recommended)**
+- Open the plugin in WHM
+- Click the "Update Plugin" button if a new version is available
+
+**Method 2: Manual upgrade via SSH**
 
 ```bash
 wget https://github.com/denialhost/cpanel-multi-log-viewer/releases/latest/download/cpanel-multi-log-viewer.tar.gz
@@ -88,7 +77,7 @@ chmod +x upgrade.sh
 ./upgrade.sh
 ```
 
-`upgrade.sh` automatically
+`upgrade.sh` automatically:
 
 - creates a backup of the current installation
 - downloads the latest package
@@ -96,30 +85,17 @@ chmod +x upgrade.sh
 - installs the new version
 - restores configuration files
 
-To use a custom package URL:
+**To use a custom package URL:**
 
 ```bash
 ./upgrade.sh https://your-server.com/plugin.tar.gz
 ```
 
-To restore from a backup:
+**To restore from a backup:**
 
 ```bash
 ./upgrade.sh --restore /root/.mlv_backup_YYYYMMDD_HHMMSS
 ```
-
-## Installation
-
-1. Upload the folder `cpanel-multi-log-viewer` to the server (e.g. `/root`).
-2. Run the installer:
-
-   ```bash
-   cd /root/cpanel-multi-log-viewer
-   chmod +x install.sh
-   ./install.sh
-   ```
-
-3. Log in to WHM as `root` and open **Plugins → Multi Log Viewer**.
 
 ## Uninstallation
 
