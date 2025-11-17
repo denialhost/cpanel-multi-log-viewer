@@ -1,4 +1,4 @@
-Multi Log Viewer (MLV) v1.1.3 for cPanel/WHM
+Multi Log Viewer (MLV) v1.1.4 for cPanel/WHM
 ===========================================
 
 This project provides a WHM plugin that centralizes access to the most relevant
@@ -6,7 +6,7 @@ server logs (cPanel, Apache, Nginx, firewall, and more). From the browser you ca
 list available files, view the latest lines, perform filtered searches, detect
 compressed logs (.gz/.bz2/.xz) and download them safely for offline review.
 
-**Version:** 1.1.3  
+**Version:** 1.1.4  
 **Internal name:** mlv  
 
 ## Requirements
