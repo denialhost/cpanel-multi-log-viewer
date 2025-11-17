@@ -930,7 +930,7 @@
     changelogPanel.style.position = 'fixed';
 
     if (changelogFrame) {
-      const targetUrl = window.MLV_CHANGELOG_URL || 'https://dev.denialhost.com/cpanel-multi-log-viewer-version.txt';
+      const targetUrl = window.MLV_CHANGELOG_URL || 'https://raw.githubusercontent.com/denialhost/cpanel-multi-log-viewer/main/cpanel-multi-log-viewer-version.txt';
       const noCacheUrl = `${targetUrl}?ts=${Date.now()}`;
       changelogFrame.src = noCacheUrl;
     }
