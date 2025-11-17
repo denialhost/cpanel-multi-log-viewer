@@ -757,6 +757,7 @@
   const updateMessage = document.getElementById('update-message');
   const updateBtn = document.getElementById('update-btn');
   const cancelUpdateBtn = document.getElementById('cancel-update-btn');
+  const closeUpdatePanelBtn = document.getElementById('close-update-panel-btn');
   const showUpdateBtn = document.getElementById('show-update-btn');
 
   const checkUpdate = async (showNotification = false) => {
@@ -1176,6 +1177,14 @@
     }
     if (cancelUpdateBtn) {
       cancelUpdateBtn.addEventListener('click', () => {
+        if (updatePanel) {
+          updatePanel.style.display = 'none';
+        }
+      });
+    }
+    
+    if (closeUpdatePanelBtn) {
+      closeUpdatePanelBtn.addEventListener('click', () => {
         if (updatePanel) {
           updatePanel.style.display = 'none';
         }
