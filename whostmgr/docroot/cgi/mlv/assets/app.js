@@ -748,7 +748,7 @@
 
   // Sistema de actualización y changelog
   const changelogPanel = document.getElementById('changelog-panel');
-  const changelogFrame = document.getElementById('changelog-frame');
+  const changelogContent = document.getElementById('changelog-content');
   const showChangelogBtn = document.getElementById('show-changelog-btn');
   const closeChangelogBtn = document.getElementById('close-changelog-btn');
   const updatePanel = document.getElementById('update-panel');
@@ -917,7 +917,7 @@
     }, 10000);
   };
 
-  const showChangelogPanel = () => {
+  const showChangelogPanel = async () => {
     if (!changelogPanel) {
       console.error('[CHANGELOG] changelogPanel no encontrado');
       return;
@@ -929,10 +929,20 @@
     changelogPanel.style.zIndex = '10000';
     changelogPanel.style.position = 'fixed';
 
-    if (changelogFrame) {
-      const targetUrl = window.MLV_CHANGELOG_URL || 'https://raw.githubusercontent.com/denialhost/cpanel-multi-log-viewer/main/cpanel-multi-log-viewer-version.txt';
-      const noCacheUrl = `${targetUrl}?ts=${Date.now()}`;
-      changelogFrame.src = noCacheUrl;
+    if (changelogContent) {
+      changelogContent.textContent = 'Loading changelog...';
+      
+      try {
+        const json = await fetchJSON('mlv.cgi?api=changelog&ts=' + Date.now());
+        if (json.status === 'ok' && json.content) {
+          changelogContent.textContent = json.content;
+        } else {
+          changelogContent.textContent = `Error: ${json.message || 'Failed to load changelog'}`;
+        }
+      } catch (error) {
+        console.error('[CHANGELOG] Error:', error);
+        changelogContent.textContent = `Error loading changelog: ${error.message || 'Unknown error'}`;
+      }
     }
   };
 
