@@ -223,7 +223,7 @@ if ($is_api_request) {
             }
             
             my $action = $cgi->param('action') || 'check';
-            my $update_url = $cgi->param('url') || 'https://dev.denialhost.com/cpanel-multi-log-viewer.tar.gz';
+            my $update_url = $cgi->param('url') || 'https://github.com/denialhost/cpanel-multi-log-viewer/releases/latest/download/cpanel-multi-log-viewer.tar.gz';
             
             if ($action eq 'check') {
                 # Leer versión actual desde el directorio del plugin
@@ -1034,7 +1034,7 @@ HTML
       window.MLV_UPDATE_CHECK_INTERVAL = 30 * 60 * 1000; // 30 minutos en milisegundos
       // Versión actual para cache busting
       window.MLV_VERSION = "$current_version";
-      window.MLV_CHANGELOG_URL = "https://dev.denialhost.com/cpanel-multi-log-viewer-version.txt";
+      window.MLV_CHANGELOG_URL = "https://raw.githubusercontent.com/denialhost/cpanel-multi-log-viewer/main/cpanel-multi-log-viewer-version.txt";
     </script>
     <script src="$base_path/assets/app.js$cache_buster"></script>
 HTML
