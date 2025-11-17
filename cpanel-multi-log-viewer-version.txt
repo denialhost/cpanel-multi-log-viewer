@@ -1,4 +1,10 @@
-1.1.4
+1.1.5
+
+Changelog v1.1.5:
+- Added close button (X) to update panel for better UX
+- Optimized update version checking with cache busting to avoid stale data
+- Improved error handling in changelog and update detection
+- Enhanced UI responsiveness and user experience
 
 Changelog v1.1.4:
 - Integrated with GitHub Releases for automatic download tracking
