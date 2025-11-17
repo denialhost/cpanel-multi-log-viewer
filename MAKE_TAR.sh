@@ -114,6 +114,7 @@ whostmgr/docroot/cgi/mlv/*.php
 whostmgr/docroot/cgi/mlv/logs.cgi
 whostmgr/docroot/cgi/mlv/update.cgi
 appconfig/multi_log_viewer*.conf
+test.tar
 EOF
 
 # Intentar usar compresión rápida si está disponible, sino usar la por defecto
@@ -182,5 +183,4 @@ else
     tar -tzf "${OUTPUT_FILE}" | head -10 >&2
     exit 1
 fi
-
 
