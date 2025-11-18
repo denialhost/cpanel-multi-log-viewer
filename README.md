@@ -9,6 +9,14 @@ compressed logs (.gz/.bz2/.xz) and download them safely for offline review.
 **Version:** 1.1.5  
 **Internal name:** mlv  
 
+## Screenshots
+
+![Main Interface](screenshots/main-interface.png)
+*Main interface showing the log list and viewer*
+
+![Search Functionality](screenshots/search.png)
+*Search and filter capabilities*
+
 ## Requirements
 
 - cPanel & WHM server (118 or newer recommended)
